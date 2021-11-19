@@ -3,5 +3,5 @@ WORKDIR /workspace
 
 COPY ./src/go.mod ./src/go.sum ./
 RUN apk update \
-  && apk add --no-cache make \
+  && apk add --no-cache make gcc musl-dev \
   && go mod download

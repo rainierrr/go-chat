@@ -1,4 +1,4 @@
-module ghe.rakuten-it.com/dmc/jwt_issuer
+module github.com/rainierrr/go-chat
 
 go 1.17
 

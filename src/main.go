@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"ghe.rakuten-it.com/dmc/jwt_issuer/db"
 	"github.com/gin-gonic/gin"
+	"github.com/rainierrr/go-chat/db"
 )
 
 func main() {

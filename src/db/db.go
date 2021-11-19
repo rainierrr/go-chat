@@ -14,7 +14,7 @@ var err error
 func Initialize() error {
 	user := os.Getenv("MYSQL_USER")
 	pass := os.Getenv("MYSQL_PASSWORD")
-	dbname := os.Getenv("MYSQL__DATABASE")
+	dbname := os.Getenv("MYSQL_DATABASE")
 	host := os.Getenv("MYSQL_HOST")
 	port := os.Getenv("MYSQL_PORT")
 

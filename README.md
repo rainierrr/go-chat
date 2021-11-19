@@ -14,7 +14,6 @@ docker-compose build
 3. パッケージインストール
 ```
 docker-compose run --rm app make install
-docker-compose run --rm node yarn install
 ```
 4. migration
 ```

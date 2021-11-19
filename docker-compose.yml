@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   app:
-    container_name: jwt-issuer-app
+    container_name: go-chat-app
     build:
       context: .
       dockerfile: ./Dockerfile.local
@@ -11,23 +11,23 @@ services:
     volumes:
       - ./src/:/workspace
       - ./go:/go
-      - ./local_id_rsa:/secret/id_rsa
     depends_on:
       - "db"
+    env_file:
+      - ./.env
     environment:
-      DB_HOST: 'db'
-      DB_PORT: '3306'
+      MYSQL_HOST: 'db'
+      MYSQL_PORT: '3306'
     command: air -c ".air.toml"
   db:
-    container_name: jwt-db
+    container_name: go-chat-db
     image: mysql:8.0
     ports:
       - "3306:3306"
+    env_file:
+      - ./.env
     environment:
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_DATABASE: 'dmc'
+      MYSQL_ROOT_PASSWORD: 'pw'
       TZ: 'Asia/Tokyo'
     volumes:
     - ./db_data:/var/lib/mysql
