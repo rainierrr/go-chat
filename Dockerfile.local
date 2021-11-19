@@ -1,0 +1,7 @@
+FROM golang:1.17-alpine3.14
+WORKDIR /workspace
+
+COPY ./src/go.mod ./src/go.sum ./
+RUN apk update \
+  && apk add --no-cache make \
+  && go mod download
