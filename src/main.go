@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/rainierrr/go-chat/db"
+	"github.com/rainierrr/go-chat/message"
 )
 
 func main() {
@@ -15,6 +16,7 @@ func main() {
 		log.Fatalf("Failed To Initialize DB : %v", err)
 	}
 
+	router.POST("/message", message.PostMessageHundler)
 	router.GET("/healthcheck", func(c *gin.Context) {
 		c.String(http.StatusOK, "")
 	})
