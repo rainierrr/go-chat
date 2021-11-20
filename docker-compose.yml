@@ -3,7 +3,7 @@ services:
   app:
     container_name: go-chat-app
     build:
-      context: .
+      context: ./src
       dockerfile: ./Dockerfile.local
     tty: true
     ports:
