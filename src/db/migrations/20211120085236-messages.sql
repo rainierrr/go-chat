@@ -1,7 +1,7 @@
 
 -- +migrate Up
 CREATE TABLE IF NOT EXISTS messages (
-    uuid VARCHAR(36) PRIMARY KEY NOT NULL,
+    id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     channel_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     type VARCHAR(128) NOT NULL,
@@ -11,4 +11,4 @@ CREATE TABLE IF NOT EXISTS messages (
 )  DEFAULT CHARSET=utf8mb4;
 
 -- +migrate Down
-DROP TABLE messages IF EXISTS messages;
+DROP TABLE IF EXISTS messages;
