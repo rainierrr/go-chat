@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/rainierrr/go-chat/channel"
 	"github.com/rainierrr/go-chat/db"
 	"github.com/rainierrr/go-chat/message"
 )
@@ -16,6 +17,7 @@ func main() {
 		log.Fatalf("Failed To Initialize DB : %v", err)
 	}
 
+	router.POST("/channel", channel.PostChannelHundler)
 	router.GET("/message", message.GetLatestMessageHundler)
 	router.POST("/message", message.PostMessageHundler)
 	router.GET("/healthcheck", func(c *gin.Context) {

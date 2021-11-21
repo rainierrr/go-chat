@@ -3,16 +3,25 @@ package message
 import "github.com/rainierrr/go-chat/db"
 
 type Repository interface {
-	Create(params CreateParams) (*Message, error)
 	GetLatestMessageByID(linit uint) (*Messages, error)
+	Create(params CreateParams) (*Message, error)
+}
+type MessageRepository struct {
+	ChannelID uint
 }
 
 func NewMessageRepository(channelID uint) Repository {
 	return &MessageRepository{ChannelID: channelID}
 }
 
-type MessageRepository struct {
-	ChannelID uint
+func (r MessageRepository) GetLatestMessageByID(linit uint) (*Messages, error) {
+	messages := Messages{}
+
+	if result := db.DB.Where(&Message{ChannelID: r.ChannelID}).Limit(int(linit)).Find(&messages); result.Error != nil {
+		return &messages, result.Error
+	}
+
+	return &messages, nil
 }
 
 type CreateParams struct {
@@ -34,14 +43,4 @@ func (r MessageRepository) Create(params CreateParams) (*Message, error) {
 	}
 
 	return &message, nil
-}
-
-func (r MessageRepository) GetLatestMessageByID(linit uint) (*Messages, error) {
-	messages := Messages{}
-
-	if result := db.DB.Where(&Message{ChannelID: r.ChannelID}).Limit(int(linit)).Find(&messages); result.Error != nil {
-		return &messages, result.Error
-	}
-
-	return &messages, nil
 }
