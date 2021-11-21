@@ -1,8 +1,8 @@
 FROM golang:1.17-alpine3.14
 WORKDIR /workspace
 
-ARG DOCKER_UID=1000
-ARG DOCKER_USER=docker_user
+ARG UID=1000
+ARG USER=docker_user
 
 COPY ./go.mod ./go.sum ./
 RUN apk update \
@@ -11,5 +11,5 @@ RUN apk update \
   gcc \
   && go mod download
 
-RUN adduser --uid $DOCKER_UID --disabled-password $DOCKER_USER && chmod -R 700 /workspace
-USER $DOCKER_USER
+RUN adduser --uid $UID --disabled-password $USER && chmod -R 700 /workspace
+USER $USER

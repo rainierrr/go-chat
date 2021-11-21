@@ -21,7 +21,9 @@ services:
     command: air -c ".air.toml"
   db:
     container_name: go-chat-db
-    image: mysql:8.0
+    build:
+      context: ./db
+      dockerfile: ./Dockerfile
     ports:
       - "3306:3306"
     env_file:
@@ -31,6 +33,7 @@ services:
       TZ: 'Asia/Tokyo'
     volumes:
     - ./db_data:/var/lib/mysql
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    - ./db/mysql-my.cnf:/etc/mysql/conf.d/my.cnf
+    command: mysqld
 
 
