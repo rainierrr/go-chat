@@ -8,8 +8,8 @@ import (
 )
 
 type getLatestMessageQuery struct {
-	ChannelId int `form:"channel_id" binding:"required"`
-	Limit     int `form:"limit" binding:"required"`
+	ChannelId uint `form:"channel_id" binding:"required"`
+	Limit     uint `form:"limit" binding:"required"`
 }
 
 func GetLatestMessageHundler(ctx *gin.Context) {
@@ -33,8 +33,8 @@ func GetLatestMessageHundler(ctx *gin.Context) {
 }
 
 type postMessageBody struct {
-	UserID     int    `json:"user_id" binding:"required"`
-	ChannnelId int    `json:"channnel_id" binding:"required"`
+	UserID     uint   `json:"user_id" binding:"required"`
+	ChannnelId uint   `json:"channnel_id" binding:"required"`
 	Type       string `json:"type" binding:"required"`
 	Body       string `json:"body" binding:"required"`
 }

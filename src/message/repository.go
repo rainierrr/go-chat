@@ -4,19 +4,19 @@ import "github.com/rainierrr/go-chat/db"
 
 type Repository interface {
 	Create(params CreateParams) (*Message, error)
-	GetLatestMessageByID(linit int) (*Messages, error)
+	GetLatestMessageByID(linit uint) (*Messages, error)
 }
 
-func NewMessageRepository(channelID int) Repository {
+func NewMessageRepository(channelID uint) Repository {
 	return &MessageRepository{ChannelID: channelID}
 }
 
 type MessageRepository struct {
-	ChannelID int
+	ChannelID uint
 }
 
 type CreateParams struct {
-	UserID int
+	UserID uint
 	Type   string
 	Body   string
 }
@@ -36,10 +36,10 @@ func (r MessageRepository) Create(params CreateParams) (*Message, error) {
 	return &message, nil
 }
 
-func (r MessageRepository) GetLatestMessageByID(linit int) (*Messages, error) {
+func (r MessageRepository) GetLatestMessageByID(linit uint) (*Messages, error) {
 	messages := Messages{}
 
-	if result := db.DB.Where(&Message{ChannelID: r.ChannelID}).Limit(linit).Find(&messages); result.Error != nil {
+	if result := db.DB.Where(&Message{ChannelID: r.ChannelID}).Limit(int(linit)).Find(&messages); result.Error != nil {
 		return &messages, result.Error
 	}
 
