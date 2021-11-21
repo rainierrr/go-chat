@@ -7,6 +7,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func GetChannelHundler(ctx *gin.Context) {
+	channelsRepository := NewChannelRepository()
+
+	channels, err := channelsRepository.GetAll()
+	if err != nil {
+		log.Println(err.Error())
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "test"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"channels": channels})
+}
+
 type postcChannelBody struct {
 	Name  string `json:"name" binding:"required"`
 	Owner uint   `json:"owner" binding:"required"`

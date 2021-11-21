@@ -5,13 +5,23 @@ import (
 )
 
 type Repository interface {
-	//GetByID() (*Channels, error)
+	GetAll() (*Channels, error)
 	Create(params CreateParams) (*Channel, error)
 }
 type ChannelRepository struct{}
 
 func NewChannelRepository() Repository {
 	return &ChannelRepository{}
+}
+
+func (r ChannelRepository) GetAll() (*Channels, error) {
+	channels := Channels{}
+
+	if result := db.DB.Model(&Channels{}).Find(&channels); result.Error != nil {
+		return &channels, result.Error
+	}
+
+	return &channels, nil
 }
 
 type CreateParams struct {

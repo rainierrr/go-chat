@@ -17,7 +17,9 @@ func main() {
 		log.Fatalf("Failed To Initialize DB : %v", err)
 	}
 
+	router.GET("/channel", channel.GetChannelHundler)
 	router.POST("/channel", channel.PostChannelHundler)
+
 	router.GET("/message", message.GetLatestMessageHundler)
 	router.POST("/message", message.PostMessageHundler)
 	router.GET("/healthcheck", func(c *gin.Context) {
