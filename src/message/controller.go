@@ -16,7 +16,7 @@ func GetLatestMessageHundler(ctx *gin.Context) {
 	query := getLatestMessageQuery{}
 	if err := ctx.ShouldBindQuery(&query); err != nil {
 		log.Println(err.Error())
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "test2"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -33,8 +33,8 @@ func GetLatestMessageHundler(ctx *gin.Context) {
 }
 
 type postMessageBody struct {
-	UserID     int   `json:"user_id" binding:"required"`
-	ChannnelId int   `json:"channnel_id" binding:"required"`
+	UserID     int    `json:"user_id" binding:"required"`
+	ChannnelId int    `json:"channnel_id" binding:"required"`
 	Type       string `json:"type" binding:"required"`
 	Body       string `json:"body" binding:"required"`
 }
